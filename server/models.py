@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Integer
+from sqlalchemy import Column, DateTime, Float, Integer
 
 from database import Base
 
@@ -14,3 +14,4 @@ class Data(Base):
     pressure = Column(Integer)
     humidity = Column(Integer)
     lux = Column(Integer)
+    cpu_temp = Column(Float)

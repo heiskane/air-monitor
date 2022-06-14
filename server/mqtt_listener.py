@@ -17,6 +17,7 @@ class DataSchema(BaseModel):
     pressure: int
     humidity: int
     lux: int
+    cpu_temp: float
 
 
 def create_db_data(db: Session, *, obj_in: DataSchema) -> Data:
@@ -47,7 +48,7 @@ def on_message(client, userdata, msg):
     try:
         data = DataSchema(**json_data)
     except ValidationError:
-        print("Invalid JSON structure")
+        print("Invalid JSON structure", json_data)
         return
     
     with SessionLocal() as session:
