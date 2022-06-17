@@ -62,6 +62,7 @@ def main() -> None:
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
+    client.username_pw_set(username="test_user", password="test_pass")
 
     client.connect("localhost", 1883, 60)
 

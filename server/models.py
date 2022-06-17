@@ -15,3 +15,6 @@ class Data(Base):
     humidity = Column(Integer)
     lux = Column(Integer)
     cpu_temp = Column(Float)
+    pm1 = Column(Float)
+    pm2_5 = Column(Float)
+    pm10 = Column(Float)

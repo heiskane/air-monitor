@@ -21,6 +21,9 @@ class Data(BaseModel):
     humidity: int
     lux: int
     cpu_temp: float
+    pm1: float
+    pm2_5: float
+    pm10: float
 
 
 def get_cpu_temperature() -> float:
@@ -34,7 +37,7 @@ def get_cpu_temperature() -> float:
 
 def read_data(bme280: BME280, ltr559: LTR559) -> Dict[str, Union[int, float]]:
     # Compensation factor for temperature
-    comp_factor = 2
+    comp_factor = 2.25
     values = {}
     cpu_temp = get_cpu_temperature()
     values["cpu_temp"] = cpu_temp
@@ -56,6 +59,7 @@ def main() -> None:
     bme280 = BME280(i2c_dev=bus)
     ltr559 = LTR559()
     client = mqtt.Client()
+    client.username_pw_set(username="test_user", password="test_pass")
     client.connect("192.168.1.94", 1883, 60)
 
     # TODO: Calculate 1min averages to send over mqtt
