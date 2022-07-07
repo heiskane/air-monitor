@@ -1,21 +1,26 @@
 version: "3.8"
 
 services:
-  mosquitto:
-    image: eclipse-mosquitto
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
     ports:
       - 1883:1883
+      - 15672:15672
     volumes:
-      - ./conf/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - ./conf/creds:/mosquitto/config/creds
+      - ./server/conf/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ./server/conf/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     restart: always
 
   database:
-    image: "postgres"
+    image: postgres:14
     ports:
       - 5432:5432
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - /var/lib/postgresql:/var/lib/postgresql
     restart: always
 
   grafana:
@@ -25,7 +30,10 @@ services:
     user: '472'
     volumes:
       - /var/lib/grafana:/var/lib/grafana
+    restart: always
 
 volumes:
+  enabled_plugins:
   conf:
+  postgresql:
   grafana:
