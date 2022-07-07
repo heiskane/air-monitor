@@ -5,7 +5,11 @@ class Settings(BaseSettings):
 
     DEBUG: bool = False
 
-    POSTGRES_SERVER: str = "localhost"
+    MQTT_USERNAME: str = "user"
+    MQTT_PASSWORD: str = "pass"
+    MQTT_SERVER: str = "rabbitmq"
+
+    POSTGRES_SERVER: str = "database"
     POSTGRES_USER: str = "postgres"
     POSTGRES_PASSWORD: str = "postgres"
     POSTGRES_DB: str = "postgres"
