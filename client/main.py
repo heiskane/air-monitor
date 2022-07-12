@@ -2,13 +2,13 @@ import json
 import time
 from subprocess import PIPE, Popen
 from typing import Dict, Optional, Union
-from enviroplus import gas
-from bme280 import BME280
-from ltr559 import LTR559
-from pms5003 import PMS5003
-from pms5003 import ChecksumMismatchError
-from pms5003 import ReadTimeoutError as pmsReadTimeoutError
-from smbus import SMBus
+from enviroplus import gas  # type: ignore
+from bme280 import BME280  # type: ignore
+from ltr559 import LTR559  # type: ignore
+from pms5003 import PMS5003  # type: ignore
+from pms5003 import ChecksumMismatchError  # type: ignore
+from pms5003 import ReadTimeoutError as pmsReadTimeoutError  # type: ignore
+from smbus import SMBus  # type: ignore
 from pydantic import BaseModel
 import paho.mqtt.client as mqtt
 from datetime import datetime, timezone
