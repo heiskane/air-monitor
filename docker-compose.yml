@@ -14,6 +14,9 @@ services:
       - ./server/conf/enabled_plugins:/etc/rabbitmq/enabled_plugins
       - ./server/conf/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     restart: always
+    networks:
+      - iot-shenanigans
+      - default
 
   database:
     image: postgres:14
@@ -23,6 +26,9 @@ services:
     volumes:
       - /var/lib/postgresql:/var/lib/postgresql
     restart: always
+    networks:
+      - iot-shenanigans
+      - default
 
   grafana:
     image: grafana/grafana-oss
@@ -55,3 +61,8 @@ volumes:
   conf:
   postgresql:
   grafana:
+
+networks:
+  iot-shenanigans:
+    external: true
+  default:
