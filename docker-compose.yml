@@ -16,7 +16,6 @@ services:
     restart: always
     networks:
       - iot-shenanigans
-      - default
 
   database:
     image: postgres:14
@@ -28,7 +27,6 @@ services:
     restart: always
     networks:
       - iot-shenanigans
-      - default
 
   grafana:
     image: grafana/grafana-oss
@@ -37,10 +35,17 @@ services:
     environment:
       GF_SERVER_HTTP_PORT: 3000
       GF_SERVER_DOMAIN: localhost
+      GF_SMTP_ENABLED: ${GF_SMTP_ENABLED}
+      GF_SMTP_HOST: ${GF_SMTP_HOST}
+      GF_SMTP_USER: ${GF_SMTP_USER}
+      GF_SMTP_PASSWORD: ${GF_SMTP_PASSWORD}
+      GF_SMTP_FROM_ADDRESS: ${GF_SMTP_FROM_ADDRESS}
     user: '472'
     volumes:
       - /var/lib/grafana:/var/lib/grafana
     restart: always
+    networks:
+      - iot-shenanigans
 
   mqtt-consumer:
     build:
@@ -55,14 +60,15 @@ services:
       - rabbitmq
       - database
     restart: always
+    networks:
+      - iot-shenanigans
+
+networks:
+  iot-shenanigans:
+    external: true
 
 volumes:
   enabled_plugins:
   conf:
   postgresql:
   grafana:
-
-networks:
-  iot-shenanigans:
-    external: true
-  default:
